@@ -80,6 +80,11 @@ public class TestController {
         return libraryService.getRatings(Long.parseLong(userId));
     }
 
+    @GetMapping("/avgRatings")
+    public List<AvgRatingModel> getAvgRatings() {
+        return libraryService.getAvgRatings();
+    }
+
     @PutMapping("user/changePassword")
     public String changePassword(@RequestBody ChangePasswordModel changePasswordModel){
         return libraryService.changePassword(changePasswordModel);

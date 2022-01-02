@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -176,6 +177,12 @@ public class LibraryService {
 
     public List<UserBorrowModel> getBorrowedBooks(Long id){
         return borrowedRepo.getUserBorrowedBook(id);
+    }
+
+    public List<AvgRatingModel> getAvgRatings(){
+        List<AvgRatingModel> avgBooksRatings=new ArrayList<>();
+        for(long i=1;i<=7;i++) avgBooksRatings.add(ratingRepo.getAvgBookRating(i));
+        return avgBooksRatings;
     }
 
 
