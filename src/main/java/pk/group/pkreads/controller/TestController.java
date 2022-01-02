@@ -43,7 +43,7 @@ public class TestController {
     }
 
     @GetMapping("/users")
-    public List<User> getAllUsers() {
+    public List<UserModel> getAllUsers() {
         return pkReadsService.getAllUsers();
     }
 

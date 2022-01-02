@@ -42,8 +42,8 @@ public class PKReadsService {
         return bookRepo.getBooksInfo();
     }
 
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
+    public List<UserModel> getAllUsers() {
+        return userRepo.getAllUsers();
     }
 
     public void registerUser(RegisterModel registerModel) {
