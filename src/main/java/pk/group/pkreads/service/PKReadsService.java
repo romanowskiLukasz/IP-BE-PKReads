@@ -25,9 +25,10 @@ public class PKReadsService {
     FormRepo formRepo;
     BorrowedRepo borrowedRepo;
     CommentsRepo commentsRepo;
+    BookStatusRepo bookStatusRepo;
 
     @Autowired
-    public PKReadsService(BookRepo bookRepo, UserRepo userRepo, MessageRepo messageRepo, ReservationRepo reservationRepo, RatingRepo ratingRepo, FormRepo formRepo, BorrowedRepo borrowedRepo,CommentsRepo commentsRepo) {
+    public PKReadsService(BookRepo bookRepo, UserRepo userRepo, MessageRepo messageRepo, ReservationRepo reservationRepo, RatingRepo ratingRepo, FormRepo formRepo, BorrowedRepo borrowedRepo,CommentsRepo commentsRepo,BookStatusRepo bookStatusRepo) {
         this.bookRepo=bookRepo;
         this.userRepo = userRepo;
         this.messageRepo=messageRepo;
@@ -36,6 +37,7 @@ public class PKReadsService {
         this.formRepo=formRepo;
         this.borrowedRepo=borrowedRepo;
         this.commentsRepo=commentsRepo;
+        this.bookStatusRepo=bookStatusRepo;
     }
 
     public List<BookModel> getBooksInfo() {
@@ -80,43 +82,13 @@ public class PKReadsService {
         return bookRepo.getInfoById(id);
     }
 
-    public int getBookAmount(Long id){
-        return bookRepo.getById(id).getAmount();
-    }
-
-    public void updateBookAmount(Long id,Integer newAmount){
-         bookRepo.getById(id).setAmount(newAmount);
-    }
-
-    public void addReservatio(Long bookId,Long userId) {
-
-        Reservation reservation=Reservation.builder()
-                .user(userRepo.getById(userId))
-                .book(bookRepo.getById(bookId))
-                .reservationDate( LocalDate.now())
-                .returnDate(LocalDate.from(LocalDate.now().plusDays(7)))
-                .build();
-
-        reservationRepo.save(reservation);
-    }
-
-    public boolean reserveBook(ReservationModel reservationModel){
-        int amount=getBookAmount(reservationModel.getBookId());
-        if(amount>0){
-            updateBookAmount(reservationModel.getBookId(),amount-1);
-            addReservatio(reservationModel.getBookId(),reservationModel.getUserId());
-            return true;
-        }
-        return false;
-
-    }
 
     public UserModel getUserInfo(String email){
         return userRepo.findModelByEmail(email);
     }
 
-    public List<UserReservationsModel> getReservations(Long id){
-        return reservationRepo.getUserReservations(id);
+    public UserModel getUserInfoById(Long id){
+        return userRepo.findUserById(id);
     }
 
     public void addRating(RatingModel ratingModel){
@@ -171,9 +143,12 @@ public class PKReadsService {
 
     }
 
-    public List<UserBorrowModel> getBorrowedBooks(Long id){
-        return borrowedRepo.getUserBorrowedBook(id);
+    public void updateBookStatus(BookStatusModel bookStatusModel){
+        BookStatus updatedBookStatus=bookStatusRepo.getById(bookStatusModel.getId());
+        updatedBookStatus.setBookStatus(bookStatusModel.getBookStatus());
+        bookStatusRepo.save(updatedBookStatus);
     }
+
 
     public List<AvgRatingModel> getAvgRatings(){
         List<AvgRatingModel> avgBooksRatings=new ArrayList<>();
@@ -192,6 +167,28 @@ public class PKReadsService {
                 .user(userRepo.getById(comment.getUser_id()))
                 .build();
         commentsRepo.save(newComment);
+    }
+
+    public void postBookStatus(BookStatusModel bookStatusModel){
+        BookStatus newBookStatus=BookStatus.builder()
+                .id(bookStatusModel.getId())
+                .bookStatus(bookStatusModel.getBookStatus())
+                .book(bookRepo.getById(bookStatusModel.getBook_book_id()))
+                .user(userRepo.getById(bookStatusModel.getUser_id()))
+                        .build();
+        bookStatusRepo.save(newBookStatus);
+    }
+
+    public BookStatusModel getBookStatus(Long bookId,Long userId){
+        return bookStatusRepo.getBookStatus(bookId,userId);
+    }
+
+    public List<UserBooksStatusesModel> getUserBooksStatuses(Long userId){
+        return bookStatusRepo.getBookStatusByUserId(userId);
+    }
+
+    public void deleteComment(Long commentId){
+        commentsRepo.deleteById(commentId);
     }
 
 

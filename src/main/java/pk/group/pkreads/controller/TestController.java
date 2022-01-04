@@ -52,22 +52,18 @@ public class TestController {
         return pkReadsService.getUserInfo(email);
     }
 
-    @GetMapping("/reservations/{userId}")
-    public List<UserReservationsModel> getReservations(@PathVariable String userId) {
-        return pkReadsService.getReservations(Long.parseLong(userId));
+    @GetMapping("/userInfo/{id}")
+    public UserModel getUserInfoById(@PathVariable String id) {
+        return pkReadsService.getUserInfoById(Long.parseLong(id));
     }
+
+
 
     @PostMapping("/user/message")
     public void addMessage(@RequestBody Messages message){
         pkReadsService.addMessage(message);
     }
 
-    @PostMapping("/book/reservation")
-    @ResponseBody
-    public ResponseEntity  reserveBook(@RequestBody ReservationModel reservationModel){
-        if(pkReadsService.reserveBook(reservationModel)) return new ResponseEntity(HttpStatus.OK);
-        else return new ResponseEntity(HttpStatus.FORBIDDEN);
-    }
 
     @PostMapping("/rating")
     public void addRating(@RequestBody RatingModel ratingModel){
@@ -99,10 +95,7 @@ public class TestController {
         return pkReadsService.changeEmail(changeEmailModel);
     }
 
-    @GetMapping("/borrowedBooks/{userId}")
-    public List<UserBorrowModel> getBorrowedBooks(@PathVariable String userId) {
-        return pkReadsService.getBorrowedBooks(Long.parseLong(userId));
-    }
+
 
     @GetMapping("/getComments/{bookId}")
     public List<CommentsModel> getComments(@PathVariable String bookId) {
@@ -113,6 +106,33 @@ public class TestController {
     public void PostComment(@RequestBody CommentsModel comment){
         pkReadsService.PostComment(comment);
     }
+
+    @GetMapping("/getBookStatus/{bookId}/{userId}")
+    public BookStatusModel getBookStatus(@PathVariable String bookId,@PathVariable String userId) {
+        return pkReadsService.getBookStatus(Long.parseLong(bookId),Long.parseLong(userId));
+    }
+
+    @PutMapping("/user/updateBookStatus")
+    public void updateBookStatus(@RequestBody BookStatusModel bookStatusModel){
+         pkReadsService.updateBookStatus(bookStatusModel);
+    }
+
+    @PostMapping("/user/addBookStatus")
+    public void postBookStatus(@RequestBody BookStatusModel bookStatusModel){
+        pkReadsService.postBookStatus(bookStatusModel);
+    }
+
+    @GetMapping("/user/getBooksStatus/{userId}")
+    public List<UserBooksStatusesModel> getUserBooksStatuses(@PathVariable String userId) {
+        return pkReadsService.getUserBooksStatuses(Long.parseLong(userId));
+    }
+
+    @DeleteMapping("/deleteComment/{commentId}")
+    public void deleteComment(@PathVariable String commentId){
+        pkReadsService.deleteComment(Long.parseLong(commentId));
+    }
+
+
 
 
 }

@@ -28,6 +28,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "account_type")
+    private String account_type;
+
     @OneToMany(mappedBy = "user")
     private Set<Form> form;
 

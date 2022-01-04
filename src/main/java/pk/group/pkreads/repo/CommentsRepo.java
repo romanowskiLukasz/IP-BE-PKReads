@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface CommentsRepo extends JpaRepository<Comments, Long> {
 
-    @Query("SELECT new pk.group.pkreads.model.CommentsModel(c.content,c.book.book_id,c.user.id,c.user.name) from Comments c where c.book.book_id=:bookId")
+    @Query("SELECT new pk.group.pkreads.model.CommentsModel(c.id,c.content,c.book.book_id,c.user.id,c.user.name) from Comments c where c.book.book_id=:bookId")
     List<CommentsModel> getComments(Long bookId);
 }
 
