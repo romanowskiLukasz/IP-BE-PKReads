@@ -26,9 +26,11 @@ public class PKReadsService {
     BorrowedRepo borrowedRepo;
     CommentsRepo commentsRepo;
     BookStatusRepo bookStatusRepo;
+    AuthorRepo authorRepo;
+    PublishingHouseRepo publishingHouseRepo;
 
     @Autowired
-    public PKReadsService(BookRepo bookRepo, UserRepo userRepo, MessageRepo messageRepo, ReservationRepo reservationRepo, RatingRepo ratingRepo, FormRepo formRepo, BorrowedRepo borrowedRepo,CommentsRepo commentsRepo,BookStatusRepo bookStatusRepo) {
+    public PKReadsService(BookRepo bookRepo, UserRepo userRepo, MessageRepo messageRepo, ReservationRepo reservationRepo, RatingRepo ratingRepo, FormRepo formRepo, BorrowedRepo borrowedRepo,CommentsRepo commentsRepo,BookStatusRepo bookStatusRepo,AuthorRepo authorRepo,PublishingHouseRepo publishingHouseRepo) {
         this.bookRepo=bookRepo;
         this.userRepo = userRepo;
         this.messageRepo=messageRepo;
@@ -38,6 +40,8 @@ public class PKReadsService {
         this.borrowedRepo=borrowedRepo;
         this.commentsRepo=commentsRepo;
         this.bookStatusRepo=bookStatusRepo;
+        this.authorRepo=authorRepo;
+        this.publishingHouseRepo=publishingHouseRepo;
     }
 
     public List<BookModel> getBooksInfo() {
@@ -109,6 +113,8 @@ public class PKReadsService {
 
     public void PostForm(FormModel form){
         Form newForm=Form.builder()
+                .description((form.getDescription()))
+                .img(form.getImg())
                 .author(form.getAuthor())
                 .title(form.getTitle())
                 .publishingHouse(form.getPublishingHouse())
@@ -152,7 +158,8 @@ public class PKReadsService {
 
     public List<AvgRatingModel> getAvgRatings(){
         List<AvgRatingModel> avgBooksRatings=new ArrayList<>();
-        for(long i=1;i<=7;i++) avgBooksRatings.add(ratingRepo.getAvgBookRating(i));
+        long booksAmount=bookRepo.count();
+        for(long i=1;i<=booksAmount;i++) avgBooksRatings.add(ratingRepo.getAvgBookRating(i));
         return avgBooksRatings;
     }
 
@@ -189,6 +196,33 @@ public class PKReadsService {
 
     public void deleteComment(Long commentId){
         commentsRepo.deleteById(commentId);
+    }
+
+    public void deleteForm(Long formId){
+        formRepo.deleteById(formId);
+    }
+
+    public List<FormModel> getForms(){
+        return formRepo.getAllForms();
+    }
+
+    public void postBook(FormModel formModel){
+        List<Author> bookAuthors=new ArrayList<>();
+        Author newAuthor=Author.builder().name(formModel.getAuthor()).build();
+        bookAuthors.add(newAuthor);
+
+        PublishingHouse newPublishingHouse= PublishingHouse.builder().name(formModel.getPublishingHouse()).build();
+
+        publishingHouseRepo.save(newPublishingHouse);
+
+        Book newBook=Book.builder()
+                .authors(bookAuthors)
+                .img(formModel.getImg())
+                .description(formModel.getDescription())
+                .publishingHouse(newPublishingHouse)
+                .title(formModel.getTitle())
+                .build();
+        bookRepo.save(newBook);
     }
 
 

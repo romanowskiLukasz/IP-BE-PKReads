@@ -9,6 +9,9 @@ import lombok.*;
 @Builder
 public class FormModel {
 
+    private long id;
+    private String description;
+    private String img;
     private String title;
     private String author;
     private String publishingHouse;

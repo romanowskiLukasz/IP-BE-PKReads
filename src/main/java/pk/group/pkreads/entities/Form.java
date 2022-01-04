@@ -17,6 +17,12 @@ public class Form {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "img")
+    private String img;;
+
     @Column(name = "title")
     private String title;
 
@@ -29,7 +35,9 @@ public class Form {
     @ManyToOne
     private User user;
 
-    public Form(String title,String author,String publishingHouse) {
+    public Form(String description,String img,String title,String author,String publishingHouse) {
+        this.description=description;
+        this.img=img;
         this.title = title;
         this.author=author;
         this.publishingHouse=publishingHouse;

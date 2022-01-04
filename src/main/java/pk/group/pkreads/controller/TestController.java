@@ -132,6 +132,21 @@ public class TestController {
         pkReadsService.deleteComment(Long.parseLong(commentId));
     }
 
+    @DeleteMapping("/deleteForm/{formId}")
+    public void deleteForm(@PathVariable String formId){
+        pkReadsService.deleteForm(Long.parseLong(formId));
+    }
+
+    @GetMapping("/admin/getForms")
+    public List<FormModel> getForms() {
+        return pkReadsService.getForms();
+    }
+
+    @PostMapping("/admin/addBook")
+    public void postBook(@RequestBody FormModel formModel){
+        pkReadsService.postBook(formModel);
+    }
+
 
 
 
