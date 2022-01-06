@@ -4,11 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pk.group.pkreads.entities.Comments;
-import pk.group.pkreads.entities.Rating;
-import pk.group.pkreads.model.AvgRatingModel;
 import pk.group.pkreads.model.CommentsModel;
-import pk.group.pkreads.model.RatingModel;
-import pk.group.pkreads.model.UserBorrowModel;
 
 import java.util.List;
 

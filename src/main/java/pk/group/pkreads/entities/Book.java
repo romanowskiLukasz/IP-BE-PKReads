@@ -55,12 +55,6 @@ public class Book {
     private Set<Comments> comments;
 
 
-    @OneToMany(mappedBy = "book")
-    private Set<Reservation> reservations;
-
-    @OneToMany(mappedBy = "book")
-    private Set<BorrowedBooks> borrowedBooks;
-
 
 
 

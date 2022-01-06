@@ -40,11 +40,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Comments> comments;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Reservation> reservations;
-
-    @OneToMany(mappedBy = "user")
-    private Set<BorrowedBooks> borrowedBooks;
 
 
     public User(String name, String email, String password) {

@@ -173,8 +173,6 @@ insert into ratings (stars_count,book_book_id,user_id) values (5,23,4)
 insert into ratings (stars_count,book_book_id,user_id) values (5,13,4)
 insert into ratings (stars_count,book_book_id,user_id) values (5,15,4)
 
-insert into borrowed_books (reservation_date,return_date,book_book_id,user_id) values ("2021-12-29","2022-01-05",1,1)
-insert into borrowed_books (reservation_date,return_date,book_book_id,user_id) values ("2021-12-30","2021-01-06",2,1)
 
 insert into comments (content,book_book_id,user_id) values ("Bardzo dobra książka",1,1)
 insert into comments (content,book_book_id,user_id) values ("Test",1,2)

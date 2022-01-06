@@ -20,24 +20,20 @@ public class PKReadsService {
     BookRepo bookRepo;
     UserRepo userRepo;
     MessageRepo messageRepo;
-    ReservationRepo reservationRepo;
     RatingRepo ratingRepo;
     FormRepo formRepo;
-    BorrowedRepo borrowedRepo;
     CommentsRepo commentsRepo;
     BookStatusRepo bookStatusRepo;
     AuthorRepo authorRepo;
     PublishingHouseRepo publishingHouseRepo;
 
     @Autowired
-    public PKReadsService(BookRepo bookRepo, UserRepo userRepo, MessageRepo messageRepo, ReservationRepo reservationRepo, RatingRepo ratingRepo, FormRepo formRepo, BorrowedRepo borrowedRepo,CommentsRepo commentsRepo,BookStatusRepo bookStatusRepo,AuthorRepo authorRepo,PublishingHouseRepo publishingHouseRepo) {
+    public PKReadsService(BookRepo bookRepo, UserRepo userRepo, MessageRepo messageRepo, RatingRepo ratingRepo, FormRepo formRepo,CommentsRepo commentsRepo,BookStatusRepo bookStatusRepo,AuthorRepo authorRepo,PublishingHouseRepo publishingHouseRepo) {
         this.bookRepo=bookRepo;
         this.userRepo = userRepo;
         this.messageRepo=messageRepo;
-        this.reservationRepo=reservationRepo;
         this.ratingRepo=ratingRepo;
         this.formRepo=formRepo;
-        this.borrowedRepo=borrowedRepo;
         this.commentsRepo=commentsRepo;
         this.bookStatusRepo=bookStatusRepo;
         this.authorRepo=authorRepo;
