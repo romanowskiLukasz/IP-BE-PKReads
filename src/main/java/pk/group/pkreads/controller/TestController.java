@@ -26,6 +26,11 @@ public class TestController {
         return pkReadsService.getBooksInfo();
     }
 
+    @GetMapping("/popularBooks")
+    public List<PopularBookModel> getPopularBooksInfo(){
+        return pkReadsService.getPopularBooksInfo();
+    }
+
     @GetMapping("/books/{bookId}")
     public BookModel getBookByID(@PathVariable String bookId){
         return pkReadsService.getBookById(Long.parseLong(bookId));

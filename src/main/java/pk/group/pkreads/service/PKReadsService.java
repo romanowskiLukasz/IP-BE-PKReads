@@ -48,6 +48,10 @@ public class PKReadsService {
         return bookRepo.getBooksInfo();
     }
 
+    public List<PopularBookModel> getPopularBooksInfo() {
+        return bookRepo.getPopularBooksInfo();
+    }
+
     public List<UserModel> getAllUsers() {
         return userRepo.getAllUsers();
     }
