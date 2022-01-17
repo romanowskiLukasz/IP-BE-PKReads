@@ -21,7 +21,7 @@ public class Form {
     private String description;
 
     @Column(name = "img")
-    private String img;;
+    private String img;
 
     @Column(name = "title")
     private String title;
